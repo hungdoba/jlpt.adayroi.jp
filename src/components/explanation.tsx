@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -9,6 +8,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { CircleHelp } from 'lucide-react';
+import ExplanationEditor from './explanation-editor';
 
 type Props = {
   title?: string;
@@ -27,7 +27,7 @@ export default function Explanation({ title, content }: Props) {
           <DialogDescription>{content}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button type="submit">Send comment</Button>
+          <ExplanationEditor title={title} contentInit={content} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
