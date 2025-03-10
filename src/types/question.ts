@@ -3,6 +3,7 @@ type Question = {
   question_text: string;
   choices: string[];
   answer: number;
+  explanation: string;
 };
 
 type SubMondai = {

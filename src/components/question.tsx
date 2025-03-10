@@ -6,7 +6,6 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
 import HintIcon from './ui/hint-icon';
 import { useState } from 'react';
-import { CircleHelp } from 'lucide-react';
 import Explanation from './explanation';
 
 type Props = {
@@ -69,7 +68,12 @@ export default function Question({ mondaiId, question }: Props) {
                 >
                   {`${choiceIndex + 1}. ${choice}`}
                 </Label>
-                {showHint && question.answer == choiceIndex && <Explanation />}
+                {showHint && question.answer == choiceIndex && (
+                  <Explanation
+                    title="Giải thích"
+                    content={question.explanation}
+                  />
+                )}
               </div>
             ))}
           </RadioGroup>
