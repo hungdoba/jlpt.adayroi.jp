@@ -1,76 +1,108 @@
 'use server';
 
-import { Mondai, Question } from '@/types/question';
+import { Mondai } from '@/types/question';
 import fs from 'fs/promises';
 
 export async function updateJson(formData: FormData): Promise<boolean> {
-  const jsonFileName = formData.get('json_file_name');
-  const questionId = formData.get('question_id');
-  const mondaiId = formData.get('mondai_id');
-  const content = formData.get('content');
-
-  console.log('jsonFileName:', jsonFileName);
-  console.log('questionId:', questionId);
-  console.log('mondaiId:', mondaiId);
-  console.log('mondaiId type:', typeof mondaiId);
-  console.log('mondaiId value check:', mondaiId !== '');
+  const jsonFileName = formData.get('json_file_name') as string;
+  const questionId = formData.get('question_id') as string;
+  const mondaiId = formData.get('mondai_id') as string;
+  const content = formData.get('content') as string;
 
   const filePath = `data/questions/${jsonFileName}`;
 
-  // Read the JSON file
-  return fs
-    .readFile(filePath, 'utf8')
-    .then(async (data) => {
-      // Parse the JSON data
-      const jsonData = JSON.parse(data);
+  try {
+    // Read the JSON file
+    const data = await fs.readFile(filePath, 'utf8');
+    const jsonData = JSON.parse(data);
+    let updated = false;
 
-      if (mondaiId != '') {
-        console.log('mondaiId:', mondaiId);
+    if (mondaiId) {
+      // Update mondai_title by mondai_id
+      updated = updateMondaiTranslation(jsonData, Number(mondaiId), content);
+    } else if (questionId) {
+      // Update explanation by question_id
+      updated = updateQuestionExplanation(
+        jsonData,
+        Number(questionId),
+        content
+      );
+    }
 
-        // Update mondai_title by mondai_id
-        const mondai = jsonData.find(
-          (m: Mondai) => m.mondai_id === Number(mondaiId)
-        );
-        if (mondai) {
-          mondai.mondai_text.translation = content;
-          console.log(
-            `Updated mondai_title for mondai_id ${mondaiId} to: ${content}`
-          );
-        } else {
-          console.log(`No mondai found with mondai_id ${mondaiId}`);
-          return false;
-        }
-      } else if (questionId != '') {
-        // Update explanation by question_id
-        let found = false;
-        for (const mondai of jsonData) {
-          const question = mondai.questions.find(
-            (q: Question) => q.question_id === Number(questionId)
-          );
-          if (question) {
-            question.explanation = content;
-            console.log(
-              `Updated explanation for question_id ${questionId} to: ${content}`
-            );
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          console.log(`No question found with question_id ${questionId}`);
-          return false;
-        }
-      }
-
+    if (updated) {
       // Write the updated JSON back to the file
       await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), 'utf8');
       console.log(`File ${filePath} updated successfully`);
       return true;
+    }
 
-      return false;
-    })
-    .catch((error) => {
-      console.error('Error reading file:', error);
-      return false;
-    });
+    return false;
+  } catch (error) {
+    console.error('Error processing file:', error);
+    return false;
+  }
+}
+
+function updateMondaiTranslation(
+  jsonData: Mondai[],
+  mondaiId: number,
+  content: string
+): boolean {
+  // Try to find in top-level mondais
+  const mondai = jsonData.find((m) => m.mondai_id === mondaiId);
+  if (mondai && mondai.mondai_text) {
+    mondai.mondai_text.translation = content;
+    return true;
+  }
+
+  // Try to find in sub-mondais
+  for (const m of jsonData) {
+    if (!m.mondais) continue;
+
+    const subMondai = m.mondais.find((q) => q.mondai_id === mondaiId);
+    if (subMondai && subMondai.mondai_text) {
+      subMondai.mondai_text.translation = content;
+      return true;
+    }
+  }
+
+  console.log(`No mondai found with mondai_id ${mondaiId}`);
+  return false;
+}
+
+function updateQuestionExplanation(
+  jsonData: Mondai[],
+  questionId: number,
+  content: string
+): boolean {
+  for (const mondai of jsonData) {
+    // Check direct questions
+    if (mondai.questions) {
+      const question = mondai.questions.find(
+        (q) => q.question_id === questionId
+      );
+      if (question) {
+        question.explanation = content;
+        return true;
+      }
+    }
+
+    // Check nested questions in mondais
+    if (mondai.mondais) {
+      for (const subMondai of mondai.mondais) {
+        if (!subMondai.questions) continue;
+
+        const question = subMondai.questions.find(
+          (q) => q.question_id === questionId
+        );
+        if (question) {
+          question.explanation = content;
+          return true;
+        }
+      }
+    }
+  }
+
+  console.log(`No question found with question_id ${questionId}`);
+  return false;
 }

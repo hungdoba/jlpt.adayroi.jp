@@ -14,6 +14,8 @@ import { Textarea } from './ui/textarea';
 import { useState } from 'react';
 import { updateJson } from '@/actions/json';
 
+import { toast } from 'sonner';
+
 type Props = {
   title?: string;
   contentInit?: string;
@@ -39,7 +41,12 @@ export default function ExplanationEditor({
     formData.append('mondai_id', mondaiId ? String(mondaiId) : '');
     formData.append('question_id', questionId ? String(questionId) : '');
     formData.append('content', content ?? '');
-    await updateJson(formData);
+    const result = await updateJson(formData);
+    if (result) {
+      toast.success('Saved successfully');
+    } else {
+      toast.error('Failed to save');
+    }
   }
 
   return (

@@ -4,6 +4,7 @@ import './globals.css';
 import Providers from './providers';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import { Toaster } from 'sonner';
 
 export const roboto_mono = Roboto_Mono({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function RootLayout({
           <div className="md:container mx-auto w-full md:max-w-6xl">
             <Navbar />
             {children}
+            <Toaster />
             <Footer />
           </div>
         </Providers>

@@ -50,19 +50,19 @@ export default async function Page({ params }: Props) {
                   mondaiId={mondai.mondai_id ?? 0}
                 />
               )}
-              {mondai.sub_mondai &&
-                mondai.sub_mondai.map((sub_mondai, subMondaiIndex) => (
-                  <div key={subMondaiIndex}>
-                    {sub_mondai.mondai_text && (
+              {mondai.mondais &&
+                mondai.mondais.map((mondais, MondaiIndex) => (
+                  <div key={MondaiIndex}>
+                    {mondais.mondai_text && (
                       <MondaiText
-                        mondaiText={sub_mondai.mondai_text}
+                        mondaiText={mondais.mondai_text}
                         jsonFileName={`n1-${month}-${year}.json`}
-                        mondaiId={sub_mondai.mondai_id ?? 0}
+                        mondaiId={mondais.mondai_id ?? 0}
                       />
                     )}
-                    {sub_mondai &&
-                      sub_mondai.questions &&
-                      sub_mondai.questions.map((question, questionIndex) => (
+                    {mondais &&
+                      mondais.questions &&
+                      mondais.questions.map((question, questionIndex) => (
                         <Question
                           key={questionIndex}
                           mondaiId={mondai.mondai_id || 0}

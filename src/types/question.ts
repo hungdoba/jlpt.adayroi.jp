@@ -6,18 +6,12 @@ export type Question = {
   explanation: string;
 };
 
-export type SubMondai = {
-  mondai_id: number | null;
-  mondai_text: MondaiContent | null;
-  questions: Question[] | null;
-};
-
 export type Mondai = {
   mondai_id: number | null;
-  mondai_title: string | null;
-  mondai_text: MondaiContent | null;
-  questions: Question[] | null;
-  sub_mondai: SubMondai[] | null;
+  mondai_title?: string | null;
+  mondai_text?: MondaiContent | null;
+  questions?: Question[] | null;
+  mondais?: Mondai[] | null;
 };
 
 export type MondaiContent = {
