@@ -8,15 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { CircleHelp } from 'lucide-react';
 
-export default function Explaination() {
+export default function Explanation() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <CircleHelp size={16} strokeWidth={0.5} />
+        <CircleHelp size={16} strokeWidth={0.5} className="cursor-pointer" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { cn } from '@/lib/utils';
 import Question from '@/components/question';
+import MondaiText from '@/components/mondai-text';
 
 type Props = {
   params: Promise<{ nx: string; year: string; month: string }>;
@@ -43,22 +44,13 @@ export default async function Page({ params }: Props) {
             <div key={mondaiIndex}>
               <h2 className="mt-8 mb-4">{`問題 ${mondai.mondai_id} ${mondai.mondai_title}`}</h2>
               {mondai.mondai_text && (
-                <h3
-                  className={cn(
-                    'mt-4 mb-2 whitespace-pre-wrap',
-                    mondai.mondai_id == 7 ? 'border p-2' : ''
-                  )}
-                >
-                  {mondai.mondai_text}
-                </h3>
+                <MondaiText mondaiText={mondai.mondai_text} />
               )}
               {mondai.sub_mondai &&
                 mondai.sub_mondai.map((sub_mondai, subMondaiIndex) => (
                   <div key={subMondaiIndex}>
                     {sub_mondai.mondai_text && (
-                      <h3 className={cn('mt-4 mb-2 whitespace-pre-wrap')}>
-                        {sub_mondai.mondai_text}
-                      </h3>
+                      <MondaiText mondaiText={sub_mondai.mondai_text} />
                     )}
                     {sub_mondai &&
                       sub_mondai.questions &&
