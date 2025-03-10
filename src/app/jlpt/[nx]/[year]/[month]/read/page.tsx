@@ -1,7 +1,7 @@
 import fs from 'fs';
-import { cn } from '@/lib/utils';
-import Question from '@/components/question';
+import Question from '@/components/question-component';
 import MondaiText from '@/components/mondai-text';
+import { Mondai } from '@/types/question';
 
 type Props = {
   params: Promise<{ nx: string; year: string; month: string }>;

@@ -1,8 +1,9 @@
 import { cn } from '@/lib/utils';
 import Explanation from './explanation';
+import { MondaiContent } from '@/types/question';
 
 type Props = {
-  mondaiText: MondaiText;
+  mondaiText: MondaiContent;
 };
 
 export default function MondaiText({ mondaiText }: Props) {

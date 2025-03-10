@@ -7,13 +7,14 @@ import { Label } from './ui/label';
 import HintIcon from './ui/hint-icon';
 import { useState } from 'react';
 import Explanation from './explanation';
+import { Question } from '@/types/question';
 
 type Props = {
   mondaiId: number;
   question: Question;
 };
 
-export default function Question({ mondaiId, question }: Props) {
+export default function QuestionComponent({ mondaiId, question }: Props) {
   const [showHint, setShowHint] = useState(false);
   return (
     <>
