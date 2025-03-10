@@ -44,13 +44,21 @@ export default async function Page({ params }: Props) {
             <div key={mondaiIndex}>
               <h2 className="mt-8 mb-4">{`問題 ${mondai.mondai_id} ${mondai.mondai_title}`}</h2>
               {mondai.mondai_text && (
-                <MondaiText mondaiText={mondai.mondai_text} />
+                <MondaiText
+                  mondaiText={mondai.mondai_text}
+                  jsonFileName={`n1-${month}-${year}.json`}
+                  mondaiId={mondai.mondai_id ?? 0}
+                />
               )}
               {mondai.sub_mondai &&
                 mondai.sub_mondai.map((sub_mondai, subMondaiIndex) => (
                   <div key={subMondaiIndex}>
                     {sub_mondai.mondai_text && (
-                      <MondaiText mondaiText={sub_mondai.mondai_text} />
+                      <MondaiText
+                        mondaiText={sub_mondai.mondai_text}
+                        jsonFileName={`n1-${month}-${year}.json`}
+                        mondaiId={sub_mondai.mondai_id ?? 0}
+                      />
                     )}
                     {sub_mondai &&
                       sub_mondai.questions &&
@@ -59,6 +67,8 @@ export default async function Page({ params }: Props) {
                           key={questionIndex}
                           mondaiId={mondai.mondai_id || 0}
                           question={question}
+                          jsonFileName={`n1-${month}-${year}.json`}
+                          questionId={question.question_id ?? 0}
                         />
                       ))}
                   </div>
@@ -70,6 +80,8 @@ export default async function Page({ params }: Props) {
                       key={questionIndex}
                       mondaiId={mondai.mondai_id || 0}
                       question={question}
+                      jsonFileName={`n1-${month}-${year}.json`}
+                      questionId={question.question_id ?? 0}
                     />
                   ))}
               </div>

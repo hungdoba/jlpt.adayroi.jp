@@ -13,9 +13,20 @@ import ExplanationEditor from './explanation-editor';
 type Props = {
   title?: string;
   content?: string;
+
+  // TODO: remove in future
+  jsonFileName?: string;
+  mondaiId?: number;
+  questionId?: number;
 };
 
-export default function Explanation({ title, content }: Props) {
+export default function Explanation({
+  title,
+  content,
+  jsonFileName,
+  mondaiId,
+  questionId,
+}: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +38,13 @@ export default function Explanation({ title, content }: Props) {
           <DialogDescription>{content}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <ExplanationEditor title={title} contentInit={content} />
+          <ExplanationEditor
+            title={title}
+            contentInit={content}
+            jsonFileName={jsonFileName}
+            mondaiId={mondaiId}
+            questionId={questionId}
+          />
         </DialogFooter>
       </DialogContent>
     </Dialog>

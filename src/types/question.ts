@@ -1,5 +1,5 @@
 export type Question = {
-  question_id: string;
+  question_id: number;
   question_text: string;
   choices: string[];
   answer: number;
@@ -7,6 +7,7 @@ export type Question = {
 };
 
 export type SubMondai = {
+  mondai_id: number | null;
   mondai_text: MondaiContent | null;
   explaination: string | null;
   questions: Question[] | null;

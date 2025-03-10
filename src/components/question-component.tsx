@@ -12,19 +12,23 @@ import { Question } from '@/types/question';
 type Props = {
   mondaiId: number;
   question: Question;
+  // TODO: remove in future
+  jsonFileName?: string;
+  questionId?: number;
 };
 
-export default function QuestionComponent({ mondaiId, question }: Props) {
+export default function QuestionComponent({
+  mondaiId,
+  question,
+  jsonFileName,
+  questionId,
+}: Props) {
   const [showHint, setShowHint] = useState(false);
   return (
     <>
       <div>
         <div className="mt-4 mb-2 flex items-center justify-between">
-          <h3>
-            {`${question.question_id.replace('question-', '')}. ${
-              question.question_text
-            }`}
-          </h3>
+          <h3>{`${question.question_id}. ${question.question_text}`}</h3>
           <div className="flex">
             <BookmarkIcon />
             <HintIcon onClick={(status) => setShowHint(status)} />
@@ -74,6 +78,8 @@ export default function QuestionComponent({ mondaiId, question }: Props) {
                     <Explanation
                       title="Giải thích"
                       content={question.explanation}
+                      jsonFileName={jsonFileName}
+                      questionId={questionId ?? 0}
                     />
                   </div>
                 )}

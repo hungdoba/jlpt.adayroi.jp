@@ -1,4 +1,5 @@
 'use client';
+// TODO: remove in future
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,10 +16,25 @@ import { useState } from 'react';
 type Props = {
   title?: string;
   contentInit?: string;
+
+  // TODO: remove in future
+  jsonFileName?: string;
+  mondaiId?: number;
+  questionId?: number;
 };
 
-export default function ExplanationEditor({ title, contentInit }: Props) {
+export default function ExplanationEditor({
+  title,
+  contentInit,
+  jsonFileName,
+  mondaiId,
+  questionId,
+}: Props) {
   const [content, setContent] = useState(contentInit);
+  function saveJson(): void {
+    console.log(jsonFileName, mondaiId, questionId, content);
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -46,7 +62,9 @@ export default function ExplanationEditor({ title, contentInit }: Props) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button type="submit">Save</Button>
+          <Button type="button" onClick={saveJson}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
