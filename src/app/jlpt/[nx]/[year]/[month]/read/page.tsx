@@ -43,48 +43,50 @@ export default async function Page({ params }: Props) {
           {mondaiData.map((mondai, mondaiIndex) => (
             <div key={mondaiIndex}>
               <h2 className="mt-8 mb-4">{`問題 ${mondai.mondai_id} ${mondai.mondai_title}`}</h2>
+
+              {/* Main mondai text if present */}
               {mondai.mondai_text && (
                 <MondaiText
                   mondaiText={mondai.mondai_text}
-                  jsonFileName={`n1-${month}-${year}.json`}
+                  jsonFileName={`${nx}-${month}-${year}.json`}
                   mondaiId={mondai.mondai_id ?? 0}
                 />
               )}
-              {mondai.mondais &&
-                mondai.mondais.map((mondais, MondaiIndex) => (
-                  <div key={MondaiIndex}>
-                    {mondais.mondai_text && (
-                      <MondaiText
-                        mondaiText={mondais.mondai_text}
-                        jsonFileName={`n1-${month}-${year}.json`}
-                        mondaiId={mondais.mondai_id ?? 0}
-                      />
-                    )}
-                    {mondais &&
-                      mondais.questions &&
-                      mondais.questions.map((question, questionIndex) => (
-                        <Question
-                          key={questionIndex}
-                          mondaiId={mondai.mondai_id || 0}
-                          question={question}
-                          jsonFileName={`n1-${month}-${year}.json`}
-                          questionId={question.question_id ?? 0}
-                        />
-                      ))}
-                  </div>
-                ))}
-              <div>
-                {mondai.questions &&
-                  mondai.questions.map((question, questionIndex) => (
+
+              {/* Handle nested mondais */}
+              {mondai.mondais?.map((nestedMondai, nestedIndex) => (
+                <div key={nestedIndex}>
+                  {nestedMondai.mondai_text && (
+                    <MondaiText
+                      mondaiText={nestedMondai.mondai_text}
+                      jsonFileName={`${nx}-${month}-${year}.json`}
+                      mondaiId={nestedMondai.mondai_id ?? 0}
+                    />
+                  )}
+
+                  {/* Questions within nested mondai */}
+                  {nestedMondai.questions?.map((question, questionIndex) => (
                     <Question
                       key={questionIndex}
-                      mondaiId={mondai.mondai_id || 0}
+                      mondaiId={mondai.mondai_id ?? 0}
                       question={question}
-                      jsonFileName={`n1-${month}-${year}.json`}
+                      jsonFileName={`${nx}-${month}-${year}.json`}
                       questionId={question.question_id ?? 0}
                     />
                   ))}
-              </div>
+                </div>
+              ))}
+
+              {/* Direct questions in main mondai */}
+              {mondai.questions?.map((question, questionIndex) => (
+                <Question
+                  key={questionIndex}
+                  mondaiId={mondai.mondai_id ?? 0}
+                  question={question}
+                  jsonFileName={`${nx}-${month}-${year}.json`}
+                  questionId={question.question_id ?? 0}
+                />
+              ))}
             </div>
           ))}
         </div>
