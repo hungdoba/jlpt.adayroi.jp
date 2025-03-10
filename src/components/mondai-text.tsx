@@ -12,7 +12,7 @@ export default function MondaiText({ mondaiText }: Props) {
         {mondaiText.content}
       </h3>
       <div>
-        <Explanation />
+        <Explanation title="Translation" content={mondaiText.translation} />
       </div>
     </div>
   );

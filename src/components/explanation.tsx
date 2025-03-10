@@ -10,21 +10,24 @@ import {
 } from '@/components/ui/dialog';
 import { CircleHelp } from 'lucide-react';
 
-export default function Explanation() {
+type Props = {
+  title?: string;
+  content?: string;
+};
+
+export default function Explanation({ title, content }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <CircleHelp size={16} strokeWidth={0.5} className="cursor-pointer" />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-screen-lg whitespace-pre-wrap">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{content}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit">Send comment</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
