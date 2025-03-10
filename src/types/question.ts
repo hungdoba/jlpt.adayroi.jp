@@ -9,7 +9,6 @@ export type Question = {
 export type SubMondai = {
   mondai_id: number | null;
   mondai_text: MondaiContent | null;
-  explaination: string | null;
   questions: Question[] | null;
 };
 

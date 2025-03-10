@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from './ui/textarea';
 import { useState } from 'react';
+import { updateJson } from '@/actions/json';
 
 type Props = {
   title?: string;
@@ -31,8 +32,14 @@ export default function ExplanationEditor({
   questionId,
 }: Props) {
   const [content, setContent] = useState(contentInit);
-  function saveJson(): void {
-    console.log(jsonFileName, mondaiId, questionId, content);
+
+  async function saveJson(): Promise<void> {
+    const formData = new FormData();
+    formData.append('json_file_name', jsonFileName ?? '');
+    formData.append('mondai_id', mondaiId ? String(mondaiId) : '');
+    formData.append('question_id', questionId ? String(questionId) : '');
+    formData.append('content', content ?? '');
+    await updateJson(formData);
   }
 
   return (
