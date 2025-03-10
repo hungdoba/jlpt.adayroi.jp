@@ -69,10 +69,12 @@ export default function Question({ mondaiId, question }: Props) {
                   {`${choiceIndex + 1}. ${choice}`}
                 </Label>
                 {showHint && question.answer == choiceIndex && (
-                  <Explanation
-                    title="Giải thích"
-                    content={question.explanation}
-                  />
+                  <div className="ml-2">
+                    <Explanation
+                      title="Giải thích"
+                      content={question.explanation}
+                    />
+                  </div>
                 )}
               </div>
             ))}
