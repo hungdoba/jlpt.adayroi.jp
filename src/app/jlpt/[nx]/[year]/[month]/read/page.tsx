@@ -45,20 +45,20 @@ export default async function Page({ params }: Props) {
               <h2 className="mt-8 mb-4">{`問題 ${mondai.mondai_id} ${mondai.mondai_title}`}</h2>
 
               {/* Main mondai text if present */}
-              {mondai.mondai_text && (
+              {mondai.passage && (
                 <MondaiText
-                  mondaiText={mondai.mondai_text}
+                  mondaiText={mondai.passage}
                   jsonFileName={`${nx}-${month}-${year}.json`}
                   mondaiId={mondai.mondai_id ?? 0}
                 />
               )}
 
-              {/* Handle nested mondais */}
-              {mondai.mondais?.map((nestedMondai, nestedIndex) => (
+              {/* Handle nested sub_mondai */}
+              {mondai.sub_mondai?.map((nestedMondai, nestedIndex) => (
                 <div key={nestedIndex}>
-                  {nestedMondai.mondai_text && (
+                  {nestedMondai.passage && (
                     <MondaiText
-                      mondaiText={nestedMondai.mondai_text}
+                      mondaiText={nestedMondai.passage}
                       jsonFileName={`${nx}-${month}-${year}.json`}
                       mondaiId={nestedMondai.mondai_id ?? 0}
                     />

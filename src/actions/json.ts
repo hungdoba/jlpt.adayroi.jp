@@ -48,20 +48,20 @@ function updateMondaiTranslation(
   mondaiId: number,
   content: string
 ): boolean {
-  // Try to find in top-level mondais
+  // Try to find in top-level sub_mondai
   const mondai = jsonData.find((m) => m.mondai_id === mondaiId);
-  if (mondai && mondai.mondai_text) {
-    mondai.mondai_text.translation = content;
+  if (mondai && mondai.passage) {
+    mondai.passage.translation = content;
     return true;
   }
 
-  // Try to find in sub-mondais
+  // Try to find in sub-sub_mondai
   for (const m of jsonData) {
-    if (!m.mondais) continue;
+    if (!m.sub_mondai) continue;
 
-    const subMondai = m.mondais.find((q) => q.mondai_id === mondaiId);
-    if (subMondai && subMondai.mondai_text) {
-      subMondai.mondai_text.translation = content;
+    const subMondai = m.sub_mondai.find((q) => q.mondai_id === mondaiId);
+    if (subMondai && subMondai.passage) {
+      subMondai.passage.translation = content;
       return true;
     }
   }
@@ -87,9 +87,9 @@ function updateQuestionExplanation(
       }
     }
 
-    // Check nested questions in mondais
-    if (mondai.mondais) {
-      for (const subMondai of mondai.mondais) {
+    // Check nested questions in sub_mondai
+    if (mondai.sub_mondai) {
+      for (const subMondai of mondai.sub_mondai) {
         if (!subMondai.questions) continue;
 
         const question = subMondai.questions.find(
