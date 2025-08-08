@@ -61,7 +61,7 @@ export default async function Page({ params }: Props) {
             <div key={index} className="mb-4">
               <MondaiTitle section={section} mondais={mondais} />
               {mondais.map((grammarQuiz, idx) => (
-                <MondaiCard mondai={grammarQuiz} key={idx} />
+                <MondaiCard mondai={grammarQuiz} key={idx} jsonPath={jsonPath} />
               ))}
             </div>
           );

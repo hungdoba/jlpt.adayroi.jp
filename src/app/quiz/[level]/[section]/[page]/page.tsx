@@ -70,7 +70,7 @@ export default async function Page({ params }: PageProps) {
     <AnswersProvider testId={storageId}>
       <BookmarksProvider testId={storageId}>
         {questions.map((grammarQuiz, idx) => (
-          <MondaiCard mondai={grammarQuiz} key={idx} />
+          <MondaiCard mondai={grammarQuiz} key={idx} jsonPath={jsonPath} />
         ))}
         <div className="fixed right-2 bottom-2 flex flex-col gap-y-2 items-end">
           <MenuQuiz

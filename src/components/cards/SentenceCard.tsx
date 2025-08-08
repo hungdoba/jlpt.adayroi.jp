@@ -11,7 +11,7 @@ import AudioPlayer from '../features/AudioPlayer';
 
 interface Props {
   mondai: Mondai;
-  jsonPath?: string;
+  jsonPath: string;
 }
 
 export default function SentenceCard({ jsonPath, mondai }: Props) {

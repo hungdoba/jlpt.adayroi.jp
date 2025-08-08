@@ -12,12 +12,14 @@ import QuestionTitle from '../features/QuestionTitle';
 import OptionGroup from '../features/OptionGroup';
 
 interface Props {
+  jsonPath: string;
   question: Question;
   isFormatOptionText?: boolean;
   isFormatQuestionText?: boolean;
 }
 
 export default function QuestionCard({
+  jsonPath,
   question,
   isFormatOptionText,
   isFormatQuestionText,
@@ -126,6 +128,7 @@ export default function QuestionCard({
         hint={{
           id: question.id,
           text: question.explanation,
+          filePath: jsonPath,
           field: HintField.Question,
         }}
         open={showHintDetail}
