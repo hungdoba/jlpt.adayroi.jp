@@ -23,12 +23,12 @@ const mondai = {
 
 describe('SentenceCard', () => {
   it('renders sentence text', () => {
-    const { getByText } = render(<SentenceCard mondai={mondai} />);
+    const { getByText } = render(<SentenceCard mondai={mondai} jsonPath="" />);
     expect(getByText('Test sentence')).toBeInTheDocument();
   });
 
   it('shows hint card when help icon is clicked', () => {
-    const { container } = render(<SentenceCard mondai={mondai} />);
+    const { container } = render(<SentenceCard mondai={mondai} jsonPath="" />);
     const helpIcons = container.querySelectorAll('svg');
     fireEvent.click(helpIcons[0]);
     // No assertion for modal, as HintCard may not render visible text

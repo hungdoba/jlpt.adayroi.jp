@@ -37,7 +37,7 @@ const question = {
 
 describe('QuestionCard', () => {
   it('renders question text', () => {
-    const { getByText } = render(<QuestionCard question={question} />);
+    const { getByText } = render(<QuestionCard question={question} jsonPath="" />);
     expect(getByText((content) => content.includes('Sample question'))).toBeInTheDocument();
   });
 
@@ -48,7 +48,7 @@ describe('QuestionCard', () => {
   //   });
 
   it('shows hint card when explanation icon is clicked', () => {
-    const { container } = render(<QuestionCard question={question} />);
+    const { container } = render(<QuestionCard question={question} jsonPath="" />);
     const icons = container.querySelectorAll('svg');
     if (icons.length > 0) {
       fireEvent.click(icons[0]);
