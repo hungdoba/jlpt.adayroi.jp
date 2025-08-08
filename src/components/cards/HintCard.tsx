@@ -12,7 +12,7 @@ interface Props {
 export default function HintCard({ hint, open, onOpenChange }: Props) {
   return (
     <Dialog modal={false} open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="whitespace-pre-wrap max-w-5xl max-h-[96%]">
+      <DialogContent className="whitespace-pre-wrap md:min-w-4xl max-h-[96%]">
         <DialogHeader>
           <DialogTitle>{hint.field}</DialogTitle>
         </DialogHeader>
