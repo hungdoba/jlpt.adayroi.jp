@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { verifyId } from '@/lib/utils';
-import { getLocalStorageData } from '@/lib/localStorage';
+import { clearSyncData, getLocalStorageData, setSyncData } from '@/lib/localStorage';
 import { MESSAGES, SYNC_KEY } from '@/constants/sync';
 import { SyncService } from '@/lib/syncService';
-import { LocalStorageService } from '@/lib/localStorageService';
 
 export function useSync(onSyncDone?: () => void) {
   const [isSyncing, setIsSyncing] = useState(false);
@@ -51,10 +50,10 @@ export function useSync(onSyncDone?: () => void) {
         }
 
         // Clear existing sync data
-        LocalStorageService.clearSyncData();
+        clearSyncData();
 
         // Set new data
-        LocalStorageService.setSyncData(result.data);
+        setSyncData(result.data);
 
         toast.success(MESSAGES.DOWNLOAD_SUCCESS);
 

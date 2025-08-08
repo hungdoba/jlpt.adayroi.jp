@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { createNewId, verifyId } from '@/lib/utils';
-import { LocalStorageService } from '@/lib/localStorageService';
 import { MESSAGES } from '@/constants/sync';
+import { getUserId, setUserId } from '@/lib/localStorage';
 
 export function useUserId() {
   const [id, setId] = useState('');
@@ -10,14 +10,14 @@ export function useUserId() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   useEffect(() => {
-    const storedId = LocalStorageService.getUserId();
+    const storedId = getUserId();
     setId(storedId ?? '');
   }, []);
 
   const createNewUserId = () => {
     const newId = createNewId();
     setId(newId);
-    LocalStorageService.setUserId(newId);
+    setUserId(newId);
     setHasUnsavedChanges(false);
   };
 
@@ -27,7 +27,7 @@ export function useUserId() {
       return false;
     }
 
-    LocalStorageService.setUserId(id);
+    setUserId(id);
     toast.success(MESSAGES.ID_SAVED);
     setHasUnsavedChanges(false);
     return true;
@@ -50,7 +50,7 @@ export function useUserId() {
 
   const updateId = (newId: string) => {
     setId(newId);
-    const storedId = LocalStorageService.getUserId();
+    const storedId = getUserId();
     setHasUnsavedChanges(newId !== storedId);
   };
 
