@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,4 +119,58 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* GitHub-style calendar heatmap */
+.react-calendar-heatmap .color-empty {
+  fill: #edeff1;
+  stroke: transparent;
+  stroke-width: 0.1px;
+}
+
+.react-calendar-heatmap .color-github-1 {
+  fill: #9be9a8;
+  stroke: transparent;
+  stroke-width: 0.1px;
+}
+
+.react-calendar-heatmap .color-github-2 {
+  fill: #40c463;
+  stroke: transparent;
+  stroke-width: 0.1px;
+}
+
+.react-calendar-heatmap .color-github-3 {
+  fill: #30a14e;
+  stroke: #1d1f23;
+  stroke-width: 0.1px;
+}
+
+.react-calendar-heatmap .color-github-4 {
+  fill: #216e39;
+  stroke: #1d1f23;
+  stroke-width: 0.1px;
+}
+
+/* Dark mode support */
+.dark .react-calendar-heatmap .color-empty {
+  fill: #151b23;
+  stroke: #21262d;
+}
+
+.dark .react-calendar-heatmap .color-github-1,
+.dark .react-calendar-heatmap .color-github-2,
+.dark .react-calendar-heatmap .color-github-3,
+.dark .react-calendar-heatmap .color-github-4 {
+  stroke: #151b23;
+}
+
+.react-calendar-heatmap .color-today {
+  stroke: #3b82f6;
+  stroke-width: 0.5px;
+}
+
+.dark .react-calendar-heatmap .color-today {
+  stroke: #3b82f6;
+  stroke-width: 0.5px;
 }
