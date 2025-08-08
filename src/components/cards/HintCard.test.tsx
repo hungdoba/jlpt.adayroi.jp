@@ -3,11 +3,16 @@ import '@testing-library/jest-dom';
 import HintCard from './HintCard';
 
 jest.mock('../ui/Dialog', () => ({
-  Dialog: ({ children, modal, onOpenChange, ...props }: any) => (
-    <div data-testid="dialog" {...props}>
-      {children}
-    </div>
-  ),
+  Dialog: ({ children, open, ...props }: any) => {
+    // Extract props that would cause warnings but don't include them in the div
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { onOpenChange, modal, ...safeProps } = props;
+    return (
+      <div data-testid="dialog" data-open={open} {...safeProps}>
+        {children}
+      </div>
+    );
+  },
   DialogContent: ({ children, ...props }: any) => (
     <div data-testid="dialog-content" {...props}>
       {children}
@@ -20,6 +25,7 @@ jest.mock('../ui/Dialog', () => ({
   ),
   DialogHeader: ({ children }: any) => <div>{children}</div>,
   DialogTitle: ({ children }: any) => <div>{children}</div>,
+  DialogFooter: ({ children }: any) => <div>{children}</div>,
 }));
 jest.mock('../ui/ScrollArea', () => ({
   ScrollArea: ({ children, ...props }: any) => (
@@ -27,6 +33,14 @@ jest.mock('../ui/ScrollArea', () => ({
       {children}
     </div>
   ),
+}));
+jest.mock('./EditCard', () => {
+  const MockEditCard = () => <div data-testid="edit-card">Edit Card</div>;
+  MockEditCard.displayName = 'MockEditCard';
+  return MockEditCard;
+});
+jest.mock('@/actions/json', () => ({
+  getQuizHint: jest.fn(() => Promise.resolve('mocked hint text')),
 }));
 jest.mock('@/lib/utils', () => ({
   ...jest.requireActual('@/lib/utils'),

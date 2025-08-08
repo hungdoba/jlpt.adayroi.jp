@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home from './page';
 
-jest.mock('@/services/jlpt.service', () => ({
-  JlptService: { getJlptInfo: jest.fn(() => Promise.resolve([])) },
+jest.mock('@/lib/jlpt', () => ({
+  getJlptInfo: jest.fn(() => Promise.resolve([])),
 }));
 jest.mock('@/components/table/JlptDataTable', () => {
   const MockJlptDataTable = () => <div data-testid="jlpt-table">JLPT Table</div>;

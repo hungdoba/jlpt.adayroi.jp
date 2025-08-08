@@ -52,6 +52,7 @@ describe('JLPT Page', () => {
     try {
       await Page({ params });
     } catch (e) {
+      console.log(e);
       // expected error from notFound mock
     }
     expect(nextNavigation.notFound).toHaveBeenCalled();
