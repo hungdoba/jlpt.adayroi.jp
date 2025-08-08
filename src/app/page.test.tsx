@@ -1,13 +1,36 @@
-import '@testing-library/jest-dom';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Page from '../app/page';
+import '@testing-library/jest-dom';
+import Home from './page';
 
-describe('Page', () => {
-  it('renders a heading', () => {
-    render(<Page />);
+jest.mock('@/services/jlpt.service', () => ({
+  JlptService: { getJlptInfo: jest.fn(() => Promise.resolve([])) },
+}));
+jest.mock('@/components/table/JlptDataTable', () => {
+  const MockJlptDataTable = () => <div data-testid="jlpt-table">JLPT Table</div>;
+  MockJlptDataTable.displayName = 'MockJlptDataTable';
+  return MockJlptDataTable;
+});
+jest.mock('@/components/features/Heatmap', () => {
+  const MockHeatmap = () => <div data-testid="heatmap">Heatmap</div>;
+  MockHeatmap.displayName = 'MockHeatmap';
+  return MockHeatmap;
+});
 
-    const heading = screen.getByRole('heading', { level: 1 });
+// Mock next/link for testing
+jest.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ children }: any) => <div>{children}</div>,
+}));
 
-    expect(heading).toBeInTheDocument();
+describe('Home page', () => {
+  it('renders main sections and components', async () => {
+    render(await Home());
+    expect(screen.getByText('Đề thi kỹ năng')).toBeInTheDocument();
+    expect(screen.getByText('Tuyển tập đề thi JLPT')).toBeInTheDocument();
+    expect(screen.getByTestId('jlpt-table')).toBeInTheDocument();
+    expect(screen.getByText('Tài liệu')).toBeInTheDocument();
+    expect(screen.getByTestId('heatmap')).toBeInTheDocument();
+    expect(screen.getByText('Độ chăm chỉ')).toBeInTheDocument();
   });
 });
