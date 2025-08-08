@@ -14,6 +14,13 @@ const eslintConfig = [
   {
     ignores: ['node_modules/', '.next/', 'out/', '.env*', '*.log', '*.tsbuildinfo'],
   },
+  // Override for test files: disable no-explicit-any
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 ];
 
 export default eslintConfig;
