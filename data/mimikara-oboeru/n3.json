@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "kanji": "青春",
+    "kana": "せいしゅん",
+    "meaning": "thanh xuân",
+    "unit": 1,
+    "kanvi": "THANH XUÂN"
+  },
+  {
+    "id": 2,
+    "kanji": "晩年",
+    "kana": "ばんねん",
+    "meaning": "cuối đời",
+    "unit": 1,
+    "kanvi": "VÃN NIÊN"
+  },
+  {
+    "id": 3,
+    "kanji": "葬式",
+    "kana": "そうしき",
+    "meaning": "đám tang",
+    "unit": 1,
+    "kanvi": "TÁNG THỨC"
+  },
+  {
+    "id": 4,
+    "kanji": "世帯",
+    "kana": "せたい",
+    "meaning": "hộ gia đình",
+    "unit": 1,
+    "kanvi": "THẾ ĐỚI"
+  },
+  {
+    "id": 5,
+    "kanji": "世間",
+    "kana": "せけん",
+    "meaning": "thế giới",
+    "unit": 1,
+    "kanvi": "THẾ GIAN"
+  },
+  {
+    "id": 6,
+    "kanji": "庶民",
+    "kana": "しょみん",
+    "meaning": "dân thường",
+    "unit": 1,
+    "kanvi": "THỨ DÂN"
+  },
+  {
+    "id": 7,
+    "kanji": "負んぶ",
+    "kana": "おんぶ",
+    "meaning": "cõng, địu",
+    "unit": 1,
+    "kanvi": "PHỤ"
+  },
+  {
+    "id": 8,
+    "kanji": "片言",
+    "kana": "かたこと",
+    "meaning": "bập bõm (nói)",
+    "unit": 1,
+    "kanvi": "PHIẾN NGÔN"
+  },
+  {
+    "id": 9,
+    "kanji": "夜更かし",
+    "kana": "よふかし",
+    "meaning": "thức khuya",
+    "unit": 1,
+    "kanvi": "DẠ CANH"
+  }
+]
